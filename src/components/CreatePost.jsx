@@ -14,6 +14,7 @@ export function CreatePost() {
   })
 
   const handleSubmit = (e) => {
+    console.log('HANDLE SUBMIT RAN')
     e.preventDefault()
     createPostMutation.mutate()
   }
