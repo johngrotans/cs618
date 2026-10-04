@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://super-pancake-69qjpx9rxq6r26vj-5173.app.github.dev/sitemap.xml
