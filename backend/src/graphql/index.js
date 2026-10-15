@@ -1,3 +1,12 @@
 import { querySchema, queryResolver } from './query.js'
-export const typeDefs = [querySchema]
-export const resolvers = [queryResolver]
+import { postSchema, postResolver } from './post.js'
+import { userSchema, userResolver } from './user.js'
+import { mutationSchema, mutationResolver } from './mutation.js'
+
+export const typeDefs = [querySchema, postSchema, userSchema, mutationSchema]
+export const resolvers = [
+  queryResolver,
+  postResolver,
+  userResolver,
+  mutationResolver,
+]
