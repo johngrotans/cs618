@@ -16,7 +16,7 @@ export function Blog() {
   const [sortOrder, setSortOrder] = useState('descending')
 
   const postsQuery = useGraphQLQuery(author ? GET_POSTS_BY_AUTHOR : GET_POSTS, {
-    variables: { options: { sortBy, sortOrder } },
+    variables: { author, options: { sortBy, sortOrder } },
   })
   const posts = postsQuery.data?.postsByAuthor ?? postsQuery.data?.posts ?? []
 

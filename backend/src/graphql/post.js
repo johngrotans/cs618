@@ -5,6 +5,7 @@ id: ID!
 title: String!
 author: User
 contents: String
+image: String
 tags: [String!]
 createdAt: Float
 updatedAt: Float

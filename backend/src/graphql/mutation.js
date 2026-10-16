@@ -5,7 +5,7 @@ export const mutationSchema = `#graphql
 type Mutation {
 signupUser(username: String!, password: String!): User
 loginUser(username: String!, password: String!): String
-createPost(title: String!, contents: String, tags:[String]): Post
+createPost(title: String!, contents: String, image: String, tags:[String]): Post
 }
 `
 export const mutationResolver = {
@@ -16,7 +16,7 @@ export const mutationResolver = {
     loginUser: async (parent, { username, password }) => {
       return await loginUser({ username, password })
     },
-    createPost: async (parent, { title, contents, tags }, { auth }) => {
+    createPost: async (parent, { title, contents, image, tags }, { auth }) => {
       if (!auth) {
         throw new GraphQLError(
           'You need to be authenticated to perform this action.',
@@ -27,7 +27,7 @@ export const mutationResolver = {
           },
         )
       }
-      return await createPost(auth.sub, { title, contents, tags })
+      return await createPost(auth.sub, { title, contents, image, tags })
     },
   },
 }

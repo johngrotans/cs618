@@ -5,6 +5,7 @@ export const POST_FIELDS = gql`
     id
     title
     contents
+    image
     tags
     updatedAt
     createdAt
@@ -33,8 +34,13 @@ export const GET_POSTS_BY_AUTHOR = gql`
 `
 
 export const CREATE_POST = gql`
-  mutation createPost($title: String!, $contents: String, $tags: [String!]) {
-    createPost(title: $title, contents: $contents, tags: $tags) {
+  mutation createPost(
+    $title: String!
+    $contents: String
+    $image: String
+    $tags: [String!]
+  ) {
+    createPost(title: $title, contents: $contents, image: $image, tags: $tags) {
       id
       title
     }
