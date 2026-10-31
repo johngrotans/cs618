@@ -8,6 +8,10 @@ import { useEffect, useState } from 'react'
 import { postTrackEvent } from '../api/events.js'
 import { PostStats } from '../components/PostStats.jsx'
 
+import { useAuth } from '../contexts/AuthContext.jsx'
+import { useMutation as useGraphQLMutation } from '@apollo/client/react/index.js'
+import { LIKE_POST } from '../api/graphql/posts.js'
+
 import { getUserInfo } from '../api/users.js'
 
 import { Helmet } from 'react-helmet-async'
@@ -36,6 +40,13 @@ export function ViewPost({ postId }) {
     queryFn: () => getPostById(postId),
   })
   const post = postQuery.data
+
+  const [token] = useAuth()
+  const [likePost] = useGraphQLMutation(LIKE_POST, {
+    variables: { id: postId },
+    context: { headers: { Authorization: `Bearer ${token}` } },
+    onCompleted: () => postQuery.refetch(),
+  })
 
   const userInfoQuery = useQuery({
     queryKey: ['users', post?.author],
@@ -79,6 +90,7 @@ export function ViewPost({ postId }) {
       {post ? (
         <div>
           <Post {...post} fullPost id={postId} author={userInfo} />
+          {token && <button onClick={() => likePost()}>Like</button>}
           <hr /> <PostStats postId={postId} />
         </div>
       ) : (

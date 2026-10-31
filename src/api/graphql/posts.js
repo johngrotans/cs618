@@ -6,6 +6,7 @@ export const POST_FIELDS = gql`
     title
     contents
     image
+    likes
     tags
     updatedAt
     createdAt
@@ -43,6 +44,15 @@ export const CREATE_POST = gql`
     createPost(title: $title, contents: $contents, image: $image, tags: $tags) {
       id
       title
+    }
+  }
+`
+
+export const LIKE_POST = gql`
+  mutation likePost($id: ID!) {
+    likePost(id: $id) {
+      id
+      likes
     }
   }
 `

@@ -4,7 +4,15 @@ import { Link } from 'react-router-dom'
 
 import slug from 'slug'
 
-export function Post({ title, contents, image, author, id, fullPost = false }) {
+export function Post({
+  title,
+  contents,
+  image,
+  author,
+  id,
+  likes,
+  fullPost = false,
+}) {
   return (
     <article>
       {fullPost ? (
@@ -22,6 +30,7 @@ export function Post({ title, contents, image, author, id, fullPost = false }) {
           Written by <User {...author} />
         </em>
       )}
+      <div>Likes: {likes ?? 0}</div>
     </article>
   )
 }
@@ -29,6 +38,7 @@ Post.propTypes = {
   title: PropTypes.string.isRequired,
   contents: PropTypes.string,
   image: PropTypes.string,
+  likes: PropTypes.number,
   author: PropTypes.shape(User.propTypes),
   id: PropTypes.string.isRequired,
   fullPost: PropTypes.bool,
