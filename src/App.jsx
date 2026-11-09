@@ -3,7 +3,19 @@ import { AuthContextProvider } from './contexts/AuthContext.jsx'
 import { ApolloProvider } from '@apollo/client/react/index.js'
 import { ApolloClient, InMemoryCache } from '@apollo/client/core/index.js'
 
+import { io } from 'socket.io-client'
+
+export const socket = io(import.meta.env.VITE_SOCKET_HOST)
+
+socket.on('connect', () => {
+  console.log('connected to socket.io as', socket.id)
+})
+socket.on('connect_error', (err) => {
+  console.error('socket.io connect error:', err)
+})
+
 import PropTypes from 'prop-types'
+
 const queryClient = new QueryClient()
 
 const apolloClient = new ApolloClient({

@@ -17,7 +17,11 @@ export const mutationResolver = {
     loginUser: async (parent, { username, password }) => {
       return await loginUser({ username, password })
     },
-    createPost: async (parent, { title, contents, image, tags }, { auth }) => {
+    createPost: async (
+      parent,
+      { title, contents, image, tags },
+      { auth, io },
+    ) => {
       if (!auth) {
         throw new GraphQLError(
           'You need to be authenticated to perform this action.',
@@ -28,7 +32,9 @@ export const mutationResolver = {
           },
         )
       }
-      return await createPost(auth.sub, { title, contents, image, tags })
+      const post = await createPost(auth.sub, { title, contents, image, tags })
+      io.emit('newRecipe', { id: post.id, title: post.title })
+      return post
     },
     likePost: async (parent, { id }, { auth }) => {
       if (!auth) {
